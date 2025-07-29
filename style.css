@@ -1,0 +1,362 @@
+/* =========================================================
+   RESET & PALETTE
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Couleurs sakura */
+  --rose-clair: #fff7fb;
+  --rose: #f9d4e7;
+  --rose-fonce: #e38ab9;
+  --gris-txt: #2d2d2d;
+  --blanc: #ffffff;
+}
+
+/* =========================================================
+   BASE GÉNÉRALE
+   ========================================================= */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--rose-clair);
+  color: var(--gris-txt);
+  line-height: 1.6;
+}
+
+/* =========================================================
+   HEADER + TOPBAR
+   ========================================================= */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg, var(--rose) 0%, var(--rose-fonce) 100%);
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--blanc);
+  white-space: nowrap;
+}
+
+/* ---------- barre de recherche ---------- */
+.search-bar {
+  flex: 1;
+  position: relative;
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px 40px 8px 12px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--rose-fonce);
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+/* ---------- icônes compte/panier ---------- */
+.icons {
+  display: flex;
+  gap: 16px;
+  font-size: 1.2rem;
+  color: var(--blanc);
+}
+
+.icons span {
+  cursor: pointer;
+  position: relative;
+}
+
+#cartCount {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: var(--blanc);
+  color: var(--rose-fonce);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   MENU CATÉGORIES
+   ========================================================= */
+.menu-cat {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none; /* Firefox */
+}
+.menu-cat::-webkit-scrollbar {
+  /* Chrome */
+  display: none;
+}
+
+.menu-cat a {
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--blanc);
+  text-decoration: none;
+  color: var(--gris-txt);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.menu-cat a:hover {
+  background: var(--rose);
+}
+
+/* =========================================================
+   SECTION PRODUITS
+   ========================================================= */
+.products {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  padding: 30px 20px;
+}
+
+.card {
+  background: var(--blanc);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.card .info {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card .info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.card .info p {
+  font-size: 0.9rem;
+  color: #666;
+  flex: 1; /* pousse le bouton en bas */
+}
+
+.card button {
+  background: var(--rose-fonce);
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #c26aa0;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  background: var(--rose);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--gris-txt);
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   RESPONSIVE (mobile)
+   ========================================================= */
+@media (max-width: 600px) {
+  .search-bar {
+    order: 3;
+    width: 100%;
+  }
+  .icons {
+    order: 2;
+  }
+}
+
+/* =========================================================
+   ANIMATION PÉTALES
+   ========================================================= */
+.petal {
+  position: fixed;
+  top: -50px;
+  width: 15px;
+  height: 15px;
+  background: var(--rose-fonce);
+  border-radius: 50% 50% 50% 0;
+  opacity: 0.6;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(200px) translateY(110vh) rotate(360deg);
+  }
+}
+/* ① Variables dark mode – colle juste après :root */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rose-clair: #1e1e1e;
+    --rose: #3d3141;
+    --rose-fonce: #b76bb4;
+    --gris-txt: #e5e5e5;
+  }
+}
+
+/* ② Transition globale (ajoute en bas de body, h1… règles) */
+body,
+.card,
+header {
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+/* ③ Mode sombre forcé via classe .dark */
+.dark {
+  --rose-clair: #1e1e1e;
+  --rose: #3d3141;
+  --rose-fonce: #b76bb4;
+  --gris-txt: #e5e5e5;
+}
+
+/* ④ Skeleton loader – colle avant .card:hover */
+.card.loading {
+  background: linear-gradient(90deg, #ddd 25%, #eee 37%, #ddd 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+/* ----- Calque qui contient tous les pétales ----- */
+#petal-layer {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  overflow: hidden; /* cache les pétales hors écran      */
+  pointer-events: none; /* clics passent au travers           */
+  z-index: 0; /* derrière tout le reste             */
+}
+
+/* ----- Ajustement des pétales pour qu’ils restent derrière ----- */
+.petal {
+  z-index: 0; /* même plan que le calque            */
+  pointer-events: none; /* pas de clics                       */
+}
+
+/* --- Le conteneur produits devient un nouveau contexte relatif --- */
+.products {
+  position: relative; /* nouveau */
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  padding: 30px 20px;
+}
+
+/* --- Le calque pétales occupe toute la grille mais reste derrière --- */
+#petal-layer {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0; /* derrière les cartes */
+}
+
+/* --- Chaque carte passe devant le calque --- */
+.card {
+  position: relative; /* nouveau */
+  z-index: 1; /* devant les pétales */
+  background: var(--blanc);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+/* --- Les pétales gardent leur style mais on s'assure qu'ils restent dans le calque --- */
+.petal {
+  position: absolute; /* (était fixed) */
+  top: -50px;
+  width: 15px;
+  height: 15px;
+  background: var(--rose-fonce);
+  border-radius: 50% 50% 50% 0;
+  opacity: 0.6;
+  animation: fall linear infinite;
+  pointer-events: none;
+  z-index: 0; /* même niveau que le calque parent */
+}
+.btn-amz {
+  display: inline-block;
+  background: #ff9900;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-amz:hover {
+  background: #e68a00;
+}

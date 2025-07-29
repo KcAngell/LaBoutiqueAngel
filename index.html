@@ -1,0 +1,89 @@
+<!-- Encodage & responsive -->
+
+<!-- Titre de l’onglet -->
+
+<!-- Feuille de styles externe -->
+<link rel="stylesheet" href="style.css" />
+
+<!-- ===== HEADER collant (logo + recherche + icônes compte/panier) ===== -->
+<header>
+  <div class="topbar">
+    <!-- Logo / nom du site -->
+    <div class="logo">🌸 Angel's Shop</div>
+
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Rechercher un produit…"
+        aria-label="Recherche"
+      />
+      <button aria-label="Lancer la recherche">🔍</button>
+    </div>
+
+    <!-- Icônes utilisateur & panier -->
+    <div class="icons">
+      <span title="Mon compte">👤</span>
+      <a href="panier.html" title="Voir le panier" class="cart-link">
+  🛒<span id="cartCount">0</span>
+</a>
+
+    </div>
+  </div>
+
+  <!-- ===== Menu de catégories façon Amazon ===== -->
+  <nav class="menu-cat" aria-label="Catégories">
+    <a href="#">Électronique</a>
+    <a href="#">Livres</a>
+    <a href="#">Mode</a>
+    <a href="#">Beauté</a>
+    <a href="#">Maison</a>
+    <a href="#">Jeux vidéo</a>
+    <a href="#">Anime & Manga</a>
+  </nav>
+</header>
+
+<!-- ===== SECTION PRODUITS (les cartes sont injectées par JavaScript) ===== -->
+<main id="productGrid" class="products"></main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  &copy; 2025 Sakura Shop | Design inspiré du Japon et de la saison des
+  cerisiers 🌸<br />
+  Site pédagogique sans finalité commerciale.
+</footer>
+
+<!-- Fichier JavaScript principal -->
+<script src="script.js"></script>
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="manifest.webmanifest" />
+<!-- PWA -->
+<link rel="preload" href="style.css" as="style" />
+<!-- Perf -->
+<!-- ②   : ajoute ce bouton juste après .icons -->
+<button class="toggle-dark" aria-label="Mode sombre/clair">🌙</button>
+
+<!-- ③ Fin de  : avant <script src="script.js"> -->
+<script>
+  /* Enregistre le service worker si dispo pour mode hors‑ligne */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+
+<!-- Calque d'arrière‑plan pour les pétales -->
+<div id="petal-layer"></div>
+
+<!-- ===== HEADER ===== -->
+<header>…</header>
+…
+<main id="productGrid" class="products">
+  <!-- Calque d'arrière‑plan réservé aux pétales -->
+  <div id="petal-layer"></div>
+</main>
+<p class="disclaimer">
+  Sakura Shop participe au Programme Partenaires Amazon EU. <br />
+  En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats
+  remplissant les conditions requises.
+</p>

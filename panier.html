@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mon Panier – Sakura Shop</title>
+  <link rel="stylesheet" href="style.css"><!-- on ré‑utilise le même CSS -->
+  <style>
+    /* petites règles spécifiques panier */
+    .cart-container{max-width:800px;margin:80px auto 40px;padding:0 20px;}
+    .cart-item{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+    .cart-item img{width:80px;height:60px;object-fit:cover;border-radius:6px;}
+    .cart-item h4{flex:1;margin:0;font-size:1rem;}
+    .cart-item .qty{width:40px;text-align:center;}
+    .total{font-size:1.2rem;font-weight:700;text-align:right;margin-top:20px;}
+    .btn{background:var(--rose-fonce);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;}
+    .btn:hover{background:#c26aa0;}
+    .empty{margin:60px 0;text-align:center;font-size:1.1rem;}
+  </style>
+</head>
+<body>
+  <!-- petit header simple -->
+  <header>
+    <div class="topbar">
+      <a href="index.html" class="logo">← Revenir à la boutique</a>
+      <h2 style="color:var(--blanc);margin-left:auto;margin-right:auto;">Mon Panier</h2>
+    </div>
+  </header>
+
+  <main class="cart-container" id="cartZone">
+    <!-- items injectés par JS -->
+  </main>
+
+  <script>
+    const zone   = document.getElementById('cartZone');
+    let   cart   = JSON.parse(localStorage.getItem('cart')||'[]');
+
+    function render(){
+      zone.innerHTML='';
+      if(!cart.length){
+        zone.innerHTML = '<p class="empty">Votre panier est vide 🌸</p>';
+        return;
+      }
+      let total=0;
+      cart.forEach((p,i)=>{
+        total += p.prix * p.qty;
+        const line=document.createElement('div');
+        line.className='cart-item';
+        line.innerHTML=`
+          <img src="${p.img}" alt="${p.titre}">
+          <h4>${p.titre}</h4>
+          <input type="number" min="1" value="${p.qty}" data-idx="${i}" class="qty">
+          <strong>${(p.prix*p.qty).toFixed(2)} €</strong>
+          <button class="btn" data-del="${i}">✕</button>
+        `;
+        zone.appendChild(line);
+      });
+      const tot=document.createElement('p');
+      tot.className='total';
+      tot.innerHTML = `Total : ${total.toFixed(2)} €`;
+      zone.appendChild(tot);
+
+      const clear=document.createElement('button');
+      clear.className='btn';
+      clear.textContent='Vider le panier';
+      clear.style.marginTop='10px';
+      clear.addEventListener('click', ()=>{
+        cart=[]; sync();
+        render();
+      });
+      zone.appendChild(clear);
+    }
+
+    /* -- gestion qty et suppression -- */
+    zone.addEventListener('input',e=>{
+      if(e.target.classList.contains('qty')){
+        const i=e.target.dataset.idx;
+        cart[i].qty = Math.max(1, Number(e.target.value)||1);
+        sync(); render();
+      }
+    });
+    zone.addEventListener('click',e=>{
+      if(e.target.dataset.del!==undefined){
+        const i=e.target.dataset.del;
+        cart.splice(i,1);
+        sync(); render();
+      }
+    });
+
+    function sync(){
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    render();
+  </script>
+</body>
+</html>
